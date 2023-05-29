@@ -17,9 +17,9 @@ import java.sql.*;
 public class BankAccountRestController {
 
     @Autowired
-    private BankAccountServiceImpl service;
+    private BankAccountServiceImpl bankAccountService;
     @Autowired
-    private BankAccountServiceLegacyImpl serviceLegacy;
+    private BankAccountServiceLegacyImpl bankAccountServiceLegacy;
 
     private final static String USERNAME = "admin";
     private final static String PASSWORD = "m7Ds23R1B!I";
@@ -51,15 +51,37 @@ public class BankAccountRestController {
     @GetMapping("/balance")
     public BankAccountBalanceDTO getBalance(@RequestBody BankAccountIdDTO bankAccountIdDTO){
 
-        return BankAccountBalanceDTO.fromBankAccount(service.findById(bankAccountIdDTO.getId()));
+        BankAccount bankAccount = getServiceResult(bankAccountIdDTO);
 
+        BankAccountBalanceDTO dto = new BankAccountBalanceDTO();
+        dto.setBalance(bankAccount.getBalance());
+        if(bankAccount.getCurrency() == "RUR"){
+            dto.setCurrency("RUB");
+        }
+        else {
+            dto.setCurrency(bankAccount.getCurrency());
+        }
+
+        return dto;
+
+    }
+
+    private BankAccount getServiceResult(BankAccountIdDTO dto){
+        if(dto instanceof BankAccountAddMoneyDTO){
+            var trueDto = (BankAccountAddMoneyDTO) dto;
+            return bankAccountService.addMoney(trueDto.getId(), trueDto.getSum());
+        }
+        else if (dto instanceof BankAccountIdDTO){
+            return bankAccountServiceLegacy.findById(dto.getId());
+        }
+        else return null;
     }
 
     @PatchMapping("/balance")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public BankAccountBalanceDTO addMoney(@RequestBody BankAccountAddMoneyDTO bankAccountAddMoneyDTO){
 
-        BankAccount bankAccount = service.addMoney(bankAccountAddMoneyDTO.getId(), bankAccountAddMoneyDTO.getSum());
+        BankAccount bankAccount = getServiceResult(bankAccountAddMoneyDTO);
         return BankAccountBalanceDTO.fromBankAccount(bankAccount);
 
     }

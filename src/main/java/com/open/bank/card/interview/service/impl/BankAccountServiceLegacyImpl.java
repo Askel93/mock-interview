@@ -21,6 +21,6 @@ public class BankAccountServiceLegacyImpl implements BankAccountService {
     @Override
     public BankAccount findById(int id) {
         return bankAccountDAO.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("test"));
+                .orElseThrow(() -> new EntityNotFoundException(""));
     }
 }

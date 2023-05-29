@@ -6,8 +6,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-public class BankAccountAddMoneyDTO {
-    private Integer id;
+public class BankAccountAddMoneyDTO extends BankAccountIdDTO{
     private double sum;
+
+    public BankAccountAddMoneyDTO(Integer id) {
+        super(id);
+    }
 }

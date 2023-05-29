@@ -13,7 +13,6 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     private final BankAccountDAO bankAccountDAO;
 
-
     @Override
     public BankAccount addMoney(int bankAccountId, double money) {
         BankAccount bankAccount = findById(bankAccountId);
@@ -24,7 +23,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     @Override
     public BankAccount findById(int id) {
         return bankAccountDAO.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("test"));
+                .orElseThrow(() -> new EntityNotFoundException(""));
     }
 
 }
