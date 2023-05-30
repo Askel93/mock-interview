@@ -1,8 +1,8 @@
 package com.open.bank.card.interview.service;
 
-import com.open.bank.card.interview.entity.BankAccount;
+import com.open.bank.card.interview.dto.BankAccountBalanceDTO;
 
 public interface BankAccountService {
-    BankAccount findById(int bankAccountId);
-    BankAccount addMoney(int bankAccountId, double money);
+    BankAccountBalanceDTO getBalance(int bankAccountId);
+    BankAccountBalanceDTO addMoney(int bankAccountId, double money);
 }

@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class BankAccountIdDTO {
+public class IdDTO {
     private Integer id;
 }

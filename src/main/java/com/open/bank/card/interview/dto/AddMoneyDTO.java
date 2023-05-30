@@ -1,15 +1,14 @@
 package com.open.bank.card.interview.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class BankAccountAddMoneyDTO extends BankAccountIdDTO{
+public class AddMoneyDTO extends IdDTO {
     private double sum;
 
-    public BankAccountAddMoneyDTO(Integer id) {
+    public AddMoneyDTO(Integer id) {
         super(id);
     }
 }
