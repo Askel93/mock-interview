@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BankAccount{
+public final class BankAccount{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

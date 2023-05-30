@@ -19,8 +19,14 @@ public class BankAccountRestController {
     private BankAccountServiceStubImpl bankAccountServiceStub;
 
     @GetMapping("/balance")
-    public BankAccountBalanceDTO getBalance(@RequestBody IdDTO idDTO){
-        return bankAccountService.getBalance(idDTO.getId());
+    public BankAccountBalanceDTO getBalance(@RequestBody IdDTO idDTO) {
+        try {
+            return bankAccountService.getBalance(idDTO.getId());
+        }
+        catch (Exception e){
+
+        }
+        return new BankAccountBalanceDTO();
     }
 
     @GetMapping("/balance-stub")

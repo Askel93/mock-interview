@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AddMoneyDTO extends IdDTO {
-    private double sum;
+    public double sum;
 
     public AddMoneyDTO(Integer id) {
         super(id);

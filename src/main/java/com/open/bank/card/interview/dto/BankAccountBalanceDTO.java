@@ -11,8 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BankAccountBalanceDTO {
-    private String currency;
-    private Double balance;
+    public String currency;
+    public Double balance;
 
     public static BankAccountBalanceDTO fromBankAccount(BankAccount bankAccount){
         return new BankAccountBalanceDTO(bankAccount.getCurrency(), bankAccount.getBalance());

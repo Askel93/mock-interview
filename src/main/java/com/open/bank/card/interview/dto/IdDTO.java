@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class IdDTO {
-    private Integer id;
+    public Integer id;
 }
