@@ -7,12 +7,15 @@ import com.open.bank.card.interview.entity.BankAccount;
 import com.open.bank.card.interview.service.BankAccountService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class BankAccountServiceImpl implements BankAccountService {
 
     private final BankAccountDAO bankAccountDAO;
@@ -25,7 +28,16 @@ public class BankAccountServiceImpl implements BankAccountService {
 
         bankAccount.setBalance(bankAccount.getBalance() + money);
         bankAccount = bankAccountDAO.save(bankAccount);
+
+        addInfo(bankAccountId, money);
+
         return BankAccountBalanceDTO.fromBankAccount(bankAccount);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    protected void addInfo(int bankAccountId, double additionalSum){
+        log.info("bankAccountId = {}; additionalSum = {}", bankAccountId, additionalSum);
+        //some operations
     }
 
     @Override
