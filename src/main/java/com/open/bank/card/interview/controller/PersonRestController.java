@@ -13,7 +13,7 @@ public class PersonRestController {
     private final static String DB_NAME = "IOT_MGMT_SYSTEM";
 
     @GetMapping("/owner")
-    public Integer getOwnerId(@RequestParam Integer bankAccountId) throws SQLException {
+    public Integer getOwnerId(@RequestParam String bankAccountId) throws SQLException {
 
         Integer retValue = null;
         Connection connect = DriverManager
