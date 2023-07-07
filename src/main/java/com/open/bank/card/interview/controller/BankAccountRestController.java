@@ -34,7 +34,7 @@ public class BankAccountRestController {
         return bankAccountServiceStub.getBalance(idDTO.getId());
     }
 
-    @PatchMapping("/balance")
+    @PutMapping("/balance")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public BankAccountBalanceDTO addMoney(@RequestBody AddMoneyDTO bankAccountAddMoneyDTO){
         return bankAccountService.addMoney(bankAccountAddMoneyDTO.getId(), bankAccountAddMoneyDTO.getSum());
