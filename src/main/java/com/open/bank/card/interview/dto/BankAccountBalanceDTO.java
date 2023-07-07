@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BankAccountBalanceDTO {
+public class BankAccountBalanceDTO extends BaseDto{
     public String currency;
     public Double balance;
 

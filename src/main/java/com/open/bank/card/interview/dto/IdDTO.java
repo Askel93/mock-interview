@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class IdDTO {
+public class IdDTO extends BaseDto{
     public Integer id;
 }

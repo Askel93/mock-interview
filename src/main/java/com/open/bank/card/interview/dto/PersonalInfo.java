@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class PersonalInfo {
+public class PersonalInfo extends BaseDto{
 
     String name;
     String surname;
