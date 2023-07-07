@@ -5,6 +5,7 @@ import com.open.bank.card.interview.dao.BankAccountDAO;
 import com.open.bank.card.interview.dto.BankAccountBalanceDTO;
 import com.open.bank.card.interview.entity.BankAccount;
 import com.open.bank.card.interview.service.BankAccountService;
+import com.open.bank.card.interview.service.ExternalPersonalInfoService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BankAccountServiceImpl implements BankAccountService {
 
     private final BankAccountDAO bankAccountDAO;
+    private final ExternalPersonalInfoService externalPersonalInfoService;
 
     @Override
     @Transactional(isolation = Isolation.SERIALIZABLE)
@@ -29,15 +31,19 @@ public class BankAccountServiceImpl implements BankAccountService {
         bankAccount.setBalance(bankAccount.getBalance() + money);
         bankAccount = bankAccountDAO.save(bankAccount);
 
-        addInfo(bankAccountId, money);
+        saveTransactionInfo(bankAccountId, money);
 
         return BankAccountBalanceDTO.fromBankAccount(bankAccount);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void addInfo(int bankAccountId, double additionalSum){
-        log.info("bankAccountId = {}; additionalSum = {}", bankAccountId, additionalSum);
-        //some operations
+    protected void saveTransactionInfo(int bankAccountId, double additionalSum){
+        var personalInfo = externalPersonalInfoService.getPersonalInfo(bankAccountId);
+
+        log.info("name = {} , passport = {} , bankAccountId = {}; additionalSum = {}",
+                personalInfo.getName(), personalInfo.getPassport(), bankAccountId, additionalSum);
+
+        externalPersonalInfoService.saveTransactionInfo(bankAccountId, personalInfo, additionalSum);
     }
 
     @Override
