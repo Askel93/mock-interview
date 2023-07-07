@@ -36,12 +36,14 @@ public class BankAccountRestController {
 
     @GetMapping("/balance-stub")
     public BankAccountBalanceDTO getBalanceStub(@RequestBody IdDTO idDTO){
+        logOperation(idDTO);
         return bankAccountServiceStub.getBalance(idDTO.getId());
     }
 
     @PutMapping("/balance")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public BankAccountBalanceDTO addMoney(@RequestBody AddMoneyDTO bankAccountAddMoneyDTO){
+        logOperation(bankAccountAddMoneyDTO);
         return bankAccountService.addMoney(bankAccountAddMoneyDTO.getId(), bankAccountAddMoneyDTO.getSum());
     }
 
