@@ -48,12 +48,14 @@ public class BankAccountRestController {
     }
 
     private void logOperation(BaseDto baseDto){
-        if(baseDto instanceof IdDTO){
+
+        if(baseDto instanceof AddMoneyDTO){
+            log.info("AddMoneyDto: id = {}", ((AddMoneyDTO) baseDto).getId());
+        }
+        else if(baseDto instanceof IdDTO){
             log.info("IdDto = {}", baseDto);
         }
-        else if(baseDto instanceof AddMoneyDTO){
-            log.info("Addmoney: id = {}", ((AddMoneyDTO) baseDto).getId());
-        }
+
     }
 
 }
